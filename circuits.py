@@ -22,6 +22,8 @@ class CircuitGrid:
                     QC.h(y)
                 elif self.get_gate(x, y) == "X":
                     QC.x(y)
+                elif self.get_gate(x, y) == "Z":
+                    QC.z(y)
         quantum_state = Statevector(QC)
         for i, j in enumerate(quantum_state):
             prob = (j.real ** 2) + (j.imag ** 2)

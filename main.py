@@ -29,9 +29,10 @@ pygame.draw.rect(combined_shape, screen_data.white, pygame.Rect((0, 0), (comp_wi
 for x in range(1, 10):
     pygame.draw.line(combined_shape, screen_data.black, (0, y_offset*x), (comp_width, y_offset*x), 2)
 
-#baseline template for quantum gates surface:
+#baseline template for quantum gates and music surfaces:
 
 gates_surface = pygame.Surface((comp_width, comp_height), pygame.SRCALPHA, 32)
+music_surface = pygame.Surface((comp_width, comp_height), pygame.SRCALPHA, 32)
 
 #loop and check events:
 
@@ -44,14 +45,25 @@ while True:
                 if circ_grid.get_gate(cur_x, cur_y) == "":
                     circ_grid.set_gate(cur_x, cur_y, "H")
                     gates_surface.blit(screen_data.hadamard_surface, (48*(cur_x), y_offset*(cur_y)+18))
+                    music_surface.blit(screen_data.half_note_surface, (48*(cur_x), y_offset*(cur_y)+18))
                 elif circ_grid.get_gate(cur_x, cur_y) == "H":
                     circ_grid.set_gate(cur_x, cur_y, "")
                     pygame.draw.rect(gates_surface, pygame.SRCALPHA, pygame.Rect(48*(cur_x), y_offset*(cur_y)+18, 28, 28))
+                    pygame.draw.rect(music_surface, pygame.SRCALPHA, pygame.Rect(48*(cur_x), y_offset*(cur_y)+18, 28, 28))
             if event.key == pygame.K_x:
                 if circ_grid.get_gate(cur_x, cur_y) == "":
                     circ_grid.set_gate(cur_x, cur_y, "X")
                     gates_surface.blit(screen_data.xgate_surface, (48*(cur_x), y_offset*(cur_y)+18))
+                    music_surface.blit(screen_data.quarter_note_surface, (48*(cur_x), y_offset*(cur_y)+18))
                 elif circ_grid.get_gate(cur_x, cur_y) == "X":
+                    circ_grid.set_gate(cur_x, cur_y, "")
+                    pygame.draw.rect(gates_surface, pygame.SRCALPHA, pygame.Rect(48*(cur_x), y_offset*(cur_y)+18, 28, 28))
+                    pygame.draw.rect(music_surface, pygame.SRCALPHA, pygame.Rect(48*(cur_x), y_offset*(cur_y)+18, 28, 28))
+            if event.key == pygame.K_z:
+                if circ_grid.get_gate(cur_x, cur_y) == "":
+                    circ_grid.set_gate(cur_x, cur_y, "Z")
+                    gates_surface.blit(screen_data.zgate_surface, (48*(cur_x), y_offset*(cur_y)+18))
+                elif circ_grid.get_gate(cur_x, cur_y) == "Z":
                     circ_grid.set_gate(cur_x, cur_y, "")
                     pygame.draw.rect(gates_surface, pygame.SRCALPHA, pygame.Rect(48*(cur_x), y_offset*(cur_y)+18, 28, 28))
             if event.key == pygame.K_s:
@@ -66,10 +78,14 @@ while True:
                 circ_grid.compile()
     #fill screen, make black bg
     screen.fill(screen_data.black)
-    #initialise composer shapes
+    #initialise circuit composer
     circuit_comp = combined_shape.copy()
     circuit_comp.blit(gates_surface, (0, 0))
+    circuit_comp.blit(screen_data.cursor, (48*(cur_x)-4, y_offset*(cur_y)+14))
+    #initialise music composer
     music_comp = combined_shape.copy()
+    music_comp.blit(music_surface, (0, 0))
+    music_comp.blit(screen_data.cursor, (48*(cur_x)-4, y_offset*(cur_y)+14))
     #draw composer to screen
     screen.blit(circuit_comp, (width*0.05, 0))
     screen.blit(music_comp, (width*0.05, 400))
