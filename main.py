@@ -74,8 +74,12 @@ while True:
                 cur_x = min(cur_x + 1, 17)
             if event.key == pygame.K_a:
                 cur_x = max(cur_x - 1, 0)
-            if event.key == pygame.K_RETURN:
-                circ_grid.compile()
+            if event.key == pygame.K_1:
+                circ_grid.print_state()
+            if event.key == pygame.K_2:
+                circ_grid.measure()
+            if event.key == pygame.K_3:
+                circ_grid.output_chord()
     #fill screen, make black bg
     screen.fill(screen_data.black)
     #initialise circuit composer
