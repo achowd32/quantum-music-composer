@@ -13,6 +13,8 @@ blue = 0, 0, 255
 
 #fonts
 my_font = pygame.font.SysFont('Arial', 20)
+comp_font = pygame.font.SysFont('Arial', 60)
+label_font = pygame.font.SysFont('Arial', 25)
 
 #hadamard gate GUI
 
@@ -53,3 +55,6 @@ pygame.draw.line(half_note_surface, black, (16, 15), (16, 0), 2)
 quarter_note_surface = pygame.Surface((28, 28), pygame.SRCALPHA, 32)
 pygame.draw.ellipse(quarter_note_surface, black, (9, 11, 10, 8))
 pygame.draw.line(quarter_note_surface, black, (16, 15), (16, 0), 2)
+
+#composer-text GUI
+composer_text = comp_font.render('QHARMONY', True, white)

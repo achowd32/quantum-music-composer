@@ -93,5 +93,13 @@ while True:
     #draw composer to screen
     screen.blit(circuit_comp, (width*0.05, 0))
     screen.blit(music_comp, (width*0.05, 400))
+    #draw composer text to screen
+    screen.blit(screen_data.composer_text, (width*0.05, 325))
+    #draw labels to screen
+    lfont = screen_data.label_font
+    notes = ['F', 'E', 'D', 'C', 'B', 'A', 'G', 'F', 'E']
+    for x in range(1, 10):
+        screen.blit(lfont.render("Q"+str(x), True, screen_data.white), (10, y_offset*x - 13))
+        screen.blit(lfont.render(notes[x-1], True, screen_data.white), (20, y_offset*x - 13+400))
     #update
     pygame.display.flip()
